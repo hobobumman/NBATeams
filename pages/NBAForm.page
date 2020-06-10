@@ -1,0 +1,36 @@
+<apex:page controller="PlayerController">
+    
+	<apex:pageBlock title="NBA Player Team ">
+        <!--Searching for a Player -->
+        
+       <apex:form >
+       
+       	<apex:outputText value="Player Name" />  <apex:inputText value="{!searchName}" />
+           <apex:outputText value="Season/Year"/>  <apex:inputText value="{!seasonYear}" /> 
+       <apex:commandButton action="{!generatePlayerList}" value="Search" reRender="display" />
+     
+		</apex:form> 
+        </apex:pageBlock>
+    
+        <apex:pageBlock id="display" title="Search Results" > 
+        <apex:pageBlockTable value="{!playerList}" var="Contact" >
+        	<apex:column value="{!Contact.name}"/>
+            <apex:column value="{!Contact.Weight__c}"/>
+            <apex:column value="{!Contact.Height_Feet__c}"/>
+            <apex:column value="{!Contact.Height_Inches__c}"/>
+            <apex:column value="{!Contact.Position__c}"/>
+        </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+    <!--<apex:pageBlock title="Player Summary" >
+       	<apex:outputField value="{!Contact.Name}"/>
+        <apex:outputField value="{!Contact.Points_Per_Game__c}"/>
+        <apex:outputField value="{!Contact.Points_Per_Game__c}"/>
+        <apex:outputField value="{!Contact.Rebounds_Per_Game__c}"/>
+        <apex:outputField value="{!Contact.Assists_Per_Game__c}"/>
+        <apex:outputField value="{!Contact.Blocks__c}"/>
+        <apex:outputField value="{!Contact.Steals__c}"/>
+        <apex:outputField value="{!Contact.Field_Goal_Percentage__c}"/>
+	</apex:pageBlock>-->
+	
+</apex:page>
