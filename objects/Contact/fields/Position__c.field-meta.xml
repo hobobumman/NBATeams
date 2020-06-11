@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Position__c</fullName>
+    <description>C = Center, PF = Power Forward, SF = Small Forward, SG = Shooting Guard, PG = Point Guard, G = Guard, F = Forward.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>C = Center, PF = Power Forward, SF = Small Forward, SG = Shooting Guard, PG = Point Guard, G = Guard, F = Forward.</inlineHelpText>
+    <label>Position</label>
+    <length>2</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
