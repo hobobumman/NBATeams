@@ -1,36 +1,58 @@
 <apex:page controller="PlayerController">
-    
+    <script type="text/javascript">
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>
+    <apex:form >
 	<apex:pageBlock title="NBA Player Team ">
         <!--Searching for a Player -->
         
-       <apex:form >
+       
        
        	<apex:outputText value="Player Name" />  <apex:inputText value="{!searchName}" />
            <apex:outputText value="Season/Year"/>  <apex:inputText value="{!seasonYear}" /> 
        <apex:commandButton action="{!generatePlayerList}" value="Search" reRender="display" />
      
-		</apex:form> 
+		
         </apex:pageBlock>
     
         <apex:pageBlock id="display" title="Search Results" > 
-        <apex:pageBlockTable value="{!playerList}" var="Contact" >
-        	<apex:column value="{!Contact.name}"/>
-            <apex:column value="{!Contact.Weight__c}"/>
-            <apex:column value="{!Contact.Height_Feet__c}"/>
-            <apex:column value="{!Contact.Height_Inches__c}"/>
-            <apex:column value="{!Contact.Position__c}"/>
+        <apex:pageBlockTable value="{!wrapPlayerList}" var="ctWrap"  >
+            <apex:column >
+            	<apex:facet name="header">
+                    <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                </apex:facet>
+                <apex:inputCheckbox value="{!ctWrap.selected}" id="inputId"/>
+            </apex:column>
+            <apex:column value="{!ctWrap.ct.name}"/>  
+            <apex:column value="{!ctWrap.ct.Weight__c}"/>
+            <apex:column value="{!ctWrap.ct.Height_Feet__c}"/>
+            <apex:column value="{!ctWrap.ct.Height_Inches__c}"/>
+            <apex:column value="{!ctWrap.ct.Position__c}"/>
         </apex:pageBlockTable>
-        </apex:pageBlock>
+            
         
-    <!--<apex:pageBlock title="Player Summary" >
-       	<apex:outputField value="{!Contact.Name}"/>
-        <apex:outputField value="{!Contact.Points_Per_Game__c}"/>
-        <apex:outputField value="{!Contact.Points_Per_Game__c}"/>
-        <apex:outputField value="{!Contact.Rebounds_Per_Game__c}"/>
-        <apex:outputField value="{!Contact.Assists_Per_Game__c}"/>
-        <apex:outputField value="{!Contact.Blocks__c}"/>
-        <apex:outputField value="{!Contact.Steals__c}"/>
-        <apex:outputField value="{!Contact.Field_Goal_Percentage__c}"/>
-	</apex:pageBlock>-->
+        <apex:commandButton action="{!processSelected}" value="Show Stats" reRender="display" />
+        <apex:pageBlockTable value="{!selectedPlayers}" var="player" id="table2" title="Player Summary">
+        	<apex:column value="{!player.Name}"/>
+            <apex:column value="{!player.Points_Per_Game__c}"/>
+            <apex:column value="{!player.Rebounds_Per_Game__c}"/>
+            <apex:column value="{!player.Assists_Per_Game__c}"/>
+            <apex:column value="{!player.Blocks__c}"/>
+            <apex:column value="{!player.Steals__c}"/>
+            <apex:column value="{!player.Field_Goal_Percentage__c}"/>
+            
+            <apex:commandButton value="Add to Team" reRender="display"/>
+        </apex:pageBlockTable>
+            
+            </apex:pageBlock>
+    	</apex:form> 
+   
 	
 </apex:page>
